@@ -142,3 +142,21 @@ h1 {
 .btn-secondary .text {
   color: #fff;
 }
+
+.btn-back {
+  background: transparent;
+  color: #ff6b6b; 
+  border: 1px solid #ff6b6b;
+}
+
+.btn-back .bg {
+  background: #ff6b6b;
+}
+
+.btn-back .bg-inner {
+  background: #212121;
+}
+
+.btn-back:hover .bg-inner {
+  background: rgba(255, 255, 255, 0.2);
+}
