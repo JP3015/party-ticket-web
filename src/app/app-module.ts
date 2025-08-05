@@ -2,7 +2,9 @@ import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDete
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
+import { RouterModule } from '@angular/router';
 import { App } from './app';
+import { LoginComponent } from './features/login/login.component'; 
 
 @NgModule({
   declarations: [
@@ -10,7 +12,9 @@ import { App } from './app';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    RouterModule,
+    AppRoutingModule,
+    LoginComponent 
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
