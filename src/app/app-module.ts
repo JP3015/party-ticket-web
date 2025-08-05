@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { RouterModule } from '@angular/router';
 import { App } from './app';
-import { LoginComponent } from './features/login/login.component'; 
+import { LoginComponent } from './features/login/page/login.component'; 
 
 @NgModule({
   declarations: [
