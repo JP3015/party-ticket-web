@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing-module';
 import { RouterModule } from '@angular/router';
 import { App } from './app';
 import { LoginComponent } from './features/login/page/login.component'; 
+import { provideHttpClient } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { LoginComponent } from './features/login/page/login.component';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection()
+    provideZonelessChangeDetection(),
+    provideHttpClient()
   ],
   bootstrap: [App]
 })
