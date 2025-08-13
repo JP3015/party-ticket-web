@@ -29,14 +29,13 @@ export class RegistrarComponent {
 
     registrar() {
       this.usuarioService.RegistrarUsuario(this.usuario).subscribe({
-        next: () => {
-          this.mensagemOverlay.set('Usuário registrado com sucesso!');
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
           this.mostrarOverlay.set(true);
         },
-        error: () => {
-          this.mensagemOverlay.set('Erro ao registrar usuário.');
+        error: (response) => {
+          this.mensagemOverlay.set(response.error.erro || 'Erro ao registrar usuário.');
           this.mostrarOverlay.set(true);
-
         }
       });
     }

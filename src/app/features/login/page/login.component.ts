@@ -28,12 +28,12 @@ export class LoginComponent {
 
     login() {
         this.usuarioService.LoginUsuario(this.usuario).subscribe({
-        next: () => {
-          this.mensagemOverlay.set('Usuário logado com sucesso!');
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
           this.mostrarOverlay.set(true);
         },
-        error: () => {
-          this.mensagemOverlay.set('Erro ao Logar.');
+        error: (response) => {
+          this.mensagemOverlay.set(response.error.erro || 'Erro ao logar.');
           this.mostrarOverlay.set(true);
         }
       });
