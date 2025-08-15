@@ -29,7 +29,7 @@ export class LoginComponent {
     login() {
         this.usuarioService.LoginUsuario(this.usuario).subscribe({
         next: (response) => {
-          this.mensagemOverlay.set(response.mensagem);
+          this.mensagemOverlay.set("Usuário Logado.");
           this.mostrarOverlay.set(true);
         },
         error: (response) => {
