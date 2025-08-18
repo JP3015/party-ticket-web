@@ -1,0 +1,62 @@
+<app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()"></app-overlay>
+
+<form autocomplete='off' class='form' (ngSubmit)="login()">
+  <div class='control'>
+    <h1>
+      Entrar
+    </h1>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='username' placeholder='Username' type='text' [(ngModel)]="usuario.nomeUsuario" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='senha' placeholder='Senha' type='password' [(ngModel)]="usuario.senha" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <button class='btn block-cube block-cube-hover' type='button' (click)="login()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Login
+    </div>
+  </button>
+  <br>
+  <button class='btn block-cube block-cube-hover btn-secondary' type='button' (click)="registrar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Registrar
+    </div>
+  </button>
+</form>

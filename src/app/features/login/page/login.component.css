@@ -1,0 +1,9 @@
+.btn-secondary .bg-top,
+.btn-secondary .bg,
+.btn-secondary .bg-right {
+  background: linear-gradient(90deg, #b49595 0%, #978a8a 37%, #b9aeae 94%);
+}
+
+.btn-secondary .text {
+  color: #fff;
+}

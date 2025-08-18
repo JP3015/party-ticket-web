@@ -1,0 +1,19 @@
+@if (mostrar) {
+  <div class="overlay">
+    <div class="overlay-content">
+      {{ mensagem }}
+      <button class='btn block-cube block-cube-hover btn-secondary' type='button' (click)="fecharOverlay()">
+        <div class='bg-top'>
+          <div class='bg-inner'></div>
+        </div>
+        <div class='bg-right'>
+          <div class='bg-inner'></div>
+        </div>
+        <div class='bg'>
+          <div class='bg-inner'></div>
+        </div>
+        <div class='text'>OK</div>
+      </button>
+    </div>
+  </div>
+}
