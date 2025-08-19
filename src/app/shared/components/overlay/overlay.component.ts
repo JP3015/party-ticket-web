@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -12,11 +12,9 @@ import { Router } from '@angular/router';
 export class OverlayComponent {
   @Input() mensagem = '';
   @Input() mostrar = false;
-
-  constructor(private router: Router) {}
+  @Output() closed = new EventEmitter<void>();
 
   fecharOverlay() {
-    this.mostrar = false;
-    this.router.navigate(['/login']);
+    this.closed.emit();
   }
 }

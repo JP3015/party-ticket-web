@@ -39,6 +39,10 @@ export class LoginComponent {
       });
     }
 
+    fecharOverlay() {
+      this.mostrarOverlay.set(false); 
+    }
+
     registrar() {
       this.router.navigate(['/registrar']);
     }

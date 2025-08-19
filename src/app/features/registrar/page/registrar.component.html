@@ -1,4 +1,4 @@
-<app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()"></app-overlay>
+<app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()" (closed)="fecharOverlay()"></app-overlay>
 
 <form autocomplete='off' class='form' (ngSubmit)="registrar()">
   <div class='control'>
