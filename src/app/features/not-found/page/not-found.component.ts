@@ -11,7 +11,4 @@ import { FormsModule } from '@angular/forms';
 export class NotFoundComponent {
     protected readonly title = signal('party-ticket-web');
     
-    constructor(
-      private router: Router
-    ) {}
  }
