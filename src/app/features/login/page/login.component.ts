@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../../core/services/usuario.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { OverlayComponent } from '../../../shared/components/overlay/overlay.component';
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginComponent {
     
     constructor(
       private router: Router,
-      private usuarioService: UsuarioService
+      private usuarioService: UsuarioService,
+      private authService: AuthService
     ) {}
 
     usuario = {
@@ -29,8 +31,15 @@ export class LoginComponent {
     login() {
         this.usuarioService.LoginUsuario(this.usuario).subscribe({
         next: (response) => {
-          this.mensagemOverlay.set("Usuário Logado.");
-          this.mostrarOverlay.set(true);
+          const token = response.token;
+
+          if (token) {
+            this.authService.setToken(token); 
+            this.router.navigate(['/home']); 
+          } else {
+            this.mensagemOverlay.set('Token não recebido da API.');
+            this.mostrarOverlay.set(true);
+          }
         },
         error: (response) => {
           this.mensagemOverlay.set(response.error.erro || 'Erro ao logar.');

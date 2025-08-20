@@ -7,6 +7,7 @@ import { App } from './app';
 import { LoginComponent } from './features/login/page/login.component'; 
 import { provideHttpClient } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { SharedModule } from './shared/shared.module';
 
 export function tokenGetter() {
   return localStorage.getItem('token'); 
@@ -28,6 +29,7 @@ export function tokenGetter() {
         disallowedRoutes: ['http://localhost:4200/login'], 
       },
     }),
+    SharedModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
