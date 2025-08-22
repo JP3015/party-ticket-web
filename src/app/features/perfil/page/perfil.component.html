@@ -1,0 +1,28 @@
+<app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()" (closed)="fecharOverlay()"></app-overlay>
+<form autocomplete='off' class='form'>
+  <div>
+    <h1>
+      Informações do perfil
+    </h1>
+    <br>
+    <p><strong>Usuário:</strong> {{ user()?.username }}</p>
+    <p><strong>Email:</strong> {{ user()?.email }}</p>
+    <p><strong>Role:</strong> {{ user()?.role }}</p>
+  </div>
+  <br>
+  <button class='btn block-cube block-cube-hover btn-secondary' type='button'>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Mudar a senha
+    </div>
+  </button>
+  <app-sidebar></app-sidebar>
+</form>

@@ -42,7 +42,7 @@ export class LoginComponent {
           }
         },
         error: (response) => {
-          this.mensagemOverlay.set(response.error.erro || 'Erro ao logar.');
+          this.mensagemOverlay.set(response.error.erro || response.error.mensagem || 'Erro ao logar.');
           this.mostrarOverlay.set(true);
         }
       });
