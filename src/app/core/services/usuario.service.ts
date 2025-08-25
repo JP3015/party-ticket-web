@@ -22,6 +22,18 @@ export class UsuarioService {
         return this.http.post<any>(`${this.apiUrl}/auth/login`, usuario);
     }
 
+    AlterarSenhaUsuario(novaSenha: string): Observable<any> {
+        const token = this.authService.getToken();
+        if (!token) throw new Error('Usuário não está autenticado!');
+
+        return this.http.put<any>(
+            `${this.apiUrl}/auth/mudar-senha`,
+            { novaSenha },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+    }
+
+
     BuscarUsuario(): Observable<any> {
         const token = this.authService.getToken();
         if (!token) throw new Error('Usuário não está autenticado!');

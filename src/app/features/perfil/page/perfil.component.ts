@@ -14,15 +14,16 @@ import { OverlayComponent } from '../../../shared/components/overlay/overlay.com
 })
 export class PerfilComponent {
     
-    user = signal<{ username: string; email: string; role: string } | null>(null);
+    user = signal<{ username: string; email: string; role: string;} | null>(null);
 
     mostrarOverlay = signal(false);
     mensagemOverlay = signal('');
+    mudarSenha = false;
+    novaSenha: string | null = null;
+    confirmarNovaSenha: string | null = null;
 
     constructor(
-      private router: Router,
-      private usuarioService: UsuarioService,
-      private authService: AuthService
+      private usuarioService: UsuarioService
     ) {}
 
     ngOnInit() {
@@ -42,12 +43,37 @@ export class PerfilComponent {
       });
     }
 
+    usuario(){
+       if (!this.novaSenha || !this.confirmarNovaSenha) {
+        this.mensagemOverlay.set('Preencha todos os campos!');
+        this.mostrarOverlay.set(true);
+        return;
+      }
+      if(this.novaSenha !== this.confirmarNovaSenha){
+        this.mensagemOverlay.set('Senhas diferentes!');
+        this.mostrarOverlay.set(true);
+        return;
+      }
+      this.usuarioService.AlterarSenhaUsuario(this.novaSenha).subscribe({
+          next: () => {
+            this.voltar();
+            this.mensagemOverlay.set('Senha alterada com sucesso!');
+            this.mostrarOverlay.set(true);
+          },
+          error: () => {
+            this.mensagemOverlay.set('Erro ao alterar senha.');
+            this.mostrarOverlay.set(true);
+          }
+      });
+    }
+
     fecharOverlay() {
       this.mostrarOverlay.set(false); 
     }
 
-    logout() {
-      this.authService.removeToken();
-      this.router.navigate(['/login']);
+    voltar() {
+      this.mudarSenha = false;
+      this.novaSenha = null;
+      this.confirmarNovaSenha = null;
     }
  }

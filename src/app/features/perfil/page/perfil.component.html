@@ -1,4 +1,5 @@
 <app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()" (closed)="fecharOverlay()"></app-overlay>
+@if (mudarSenha == false) {
 <form autocomplete='off' class='form'>
   <div>
     <h1>
@@ -10,7 +11,7 @@
     <p><strong>Role:</strong> {{ user()?.role }}</p>
   </div>
   <br>
-  <button class='btn block-cube block-cube-hover btn-secondary' type='button'>
+  <button class='btn block-cube block-cube-hover' type='button' (click)="mudarSenha = true">
     <div class='bg-top'>
       <div class='bg-inner'></div>
     </div>
@@ -26,3 +27,67 @@
   </button>
   <app-sidebar></app-sidebar>
 </form>
+}
+@else{
+<form autocomplete='off' class='form'>
+  <div class='control'>
+    <h1>
+      Mudar a Senha
+    </h1>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='novaSenha' placeholder='Nova Senha' type='password' [(ngModel)]="novaSenha" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='confirmarSenha' placeholder='Confirmar Senha' type='password' [(ngModel)]="confirmarNovaSenha" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <button class='btn block-cube block-cube-hover' type='button' (click)="usuario()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Salvar senha
+    </div>
+  </button>
+  <br>
+  <button class='btn block-cube block-cube-hover btn-secondary' type='button' (click)="voltar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Voltar
+    </div>
+  </button>
+  <app-sidebar></app-sidebar>
+</form>
+}
