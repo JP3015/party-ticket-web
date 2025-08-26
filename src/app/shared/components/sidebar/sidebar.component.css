@@ -7,6 +7,7 @@
   position: fixed;
   left: 0;
   top: 0;
+  transition: transform 0.3s ease;
 }
 
 .logo {
@@ -29,4 +30,49 @@ li {
 
 li:hover {
   background-color: #33334d;
+}
+
+
+.toggle-btn {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-btn:hover {
+  color: #5555ff; 
+  transform: scale(1.1);
+}
+
+
+@media (max-width: 1300px) {
+  .sidebar {
+    transform: translateX(-100%); 
+    width: 200px;
+    z-index: 1000;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0); 
+  }
+
+  .content {
+    margin-left: 0; 
+  }
+
+  .toggle-btn {
+    display: block;
+    z-index: 1100;
+    position: fixed;
+    top: 0px;
+    left: 20px;
+  }
 }

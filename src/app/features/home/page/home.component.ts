@@ -11,15 +11,4 @@ import { SidebarComponent } from "../../../shared/components/sidebar/sidebar.com
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-    protected readonly title = signal('party-ticket-web');
-    
-    constructor(
-      private router: Router,
-      private authService: AuthService
-    ) {}
-
-    logout() {
-      this.authService.removeToken();
-      this.router.navigate(['/login']);
-    }
  }

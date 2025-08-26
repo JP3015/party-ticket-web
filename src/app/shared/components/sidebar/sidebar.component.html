@@ -1,4 +1,5 @@
-<div class="sidebar">
+<button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+<div class="sidebar" [class.sidebar-open]="sidebarOpen">
   <h2 class="logo">Party Ticket</h2>
   <ul>
     <br>

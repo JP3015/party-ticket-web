@@ -14,6 +14,12 @@ export class SidebarComponent {
     private authService: AuthService
   ) {}
 
+  sidebarOpen = false;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
   navigate(path: string) {
     this.router.navigate([path]);
   }
