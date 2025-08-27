@@ -20,6 +20,7 @@ export class AniversarioComponent implements OnInit  {
     'local',
     'data',
     'capacidade',
+    'capacidadeRestante',
     'nomeAniversariante',
     'idadeAniversariante',
     'acoes'
