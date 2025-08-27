@@ -8,6 +8,8 @@ import { LoginComponent } from './features/login/page/login.component';
 import { provideHttpClient } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SharedModule } from './shared/shared.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 export function tokenGetter() {
   return localStorage.getItem('token'); 
@@ -29,7 +31,9 @@ export function tokenGetter() {
         disallowedRoutes: ['http://localhost:4200/login'], 
       },
     }),
-    SharedModule
+    SharedModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

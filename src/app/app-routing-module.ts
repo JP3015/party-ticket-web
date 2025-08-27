@@ -20,6 +20,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'aniversarios',
+    loadChildren: () =>
+      import('./features/aniversarios/aniversario.module').then((m) => m.AniversarioModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'baladas',
+    loadChildren: () =>
+      import('./features/baladas/balada.module').then((m) => m.BaladaModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'perfil',
     loadChildren: () =>
       import('./features/perfil/perfil.module').then((m) => m.PerfilModule),
