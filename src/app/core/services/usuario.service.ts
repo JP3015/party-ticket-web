@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UsuarioService {
-    private apiUrl = 'http://localhost:8080';
+    private apiUrl = 'http://localhost:8080/auth';
 
     constructor(
         private http: HttpClient,
@@ -15,18 +15,18 @@ export class UsuarioService {
     ) {}
 
     RegistrarUsuario(usuario: any): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/auth/registrar`, usuario);
+        return this.http.post<any>(`${this.apiUrl}/registrar`, usuario);
     }
 
     LoginUsuario(usuario: any): Observable<any> {
-        return this.http.post<any>(`${this.apiUrl}/auth/login`, usuario);
+        return this.http.post<any>(`${this.apiUrl}/login`, usuario);
     }
 
     AlterarSenhaUsuario(novaSenha: string): Observable<any> {
         const token = this.authService.getToken();
 
         return this.http.put<any>(
-            `${this.apiUrl}/auth/mudar-senha`,
+            `${this.apiUrl}/mudar-senha`,
             { novaSenha },
             { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -35,7 +35,7 @@ export class UsuarioService {
 
     BuscarUsuario(): Observable<any> {
         const token = this.authService.getToken();
-        return this.http.get<any>(`${this.apiUrl}/auth/me`, {
+        return this.http.get<any>(`${this.apiUrl}/me`, {
             headers: { Authorization: `Bearer ${token}` }
         });
     }

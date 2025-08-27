@@ -4,13 +4,14 @@ import { SidebarComponent } from "../../../shared/components/sidebar/sidebar.com
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 import { AniversarioService } from '../../../core/services/aniversario.service';
 import { OverlayComponent } from '../../../shared/components/overlay/overlay.component';
 
 @Component({
   selector: 'app-aniversario',
   templateUrl: './aniversario.component.html',
-  imports: [FormsModule, SidebarComponent, MatPaginator, MatTableModule, OverlayComponent],
+  imports: [FormsModule, SidebarComponent, MatPaginator, MatTableModule, OverlayComponent, MatIconModule],
   styleUrls: ['./aniversario.component.css']
 })
 export class AniversarioComponent implements OnInit  {
@@ -20,7 +21,8 @@ export class AniversarioComponent implements OnInit  {
     'data',
     'capacidade',
     'nomeAniversariante',
-    'idadeAniversariante'
+    'idadeAniversariante',
+    'acoes'
   ];
 
   dataSource = new MatTableDataSource<any>([]);
@@ -43,6 +45,20 @@ export class AniversarioComponent implements OnInit  {
       }
     });
   }
+
+  deletar(id: number): void {
+    if (confirm('Tem certeza que deseja excluir este registro?')) {
+      this.aniversarioService.deletar(id).subscribe({
+        next: () => {
+          this.dataSource.data = this.dataSource.data.filter((aniversario: any) => aniversario.id !== id);
+        },
+        error: () => {
+          console.error('Erro ao deletar registro!');
+        }
+      });
+    }
+  }
+
   
   fecharOverlay() {
       this.mostrarOverlay.set(false); 

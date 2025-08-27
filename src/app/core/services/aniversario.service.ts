@@ -21,4 +21,11 @@ export class AniversarioService {
         return this.http.get<any>(this.apiUrl, { headers });
     }
 
+    deletar(id: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+    }
+
 }
