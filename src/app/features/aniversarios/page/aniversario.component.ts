@@ -7,6 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { AniversarioService } from '../../../core/services/aniversario.service';
 import { OverlayComponent } from '../../../shared/components/overlay/overlay.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-aniversario',
@@ -32,7 +33,10 @@ export class AniversarioComponent implements OnInit  {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private aniversarioService: AniversarioService) {}
+  constructor(
+    private aniversarioService: AniversarioService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.aniversarioService.listar().subscribe({
@@ -47,6 +51,10 @@ export class AniversarioComponent implements OnInit  {
     });
   }
 
+  verConvidados(idAniversario: number): void {
+    this.router.navigate(['/convidados', idAniversario]);
+  }
+
   deletar(id: number): void {
     if (confirm('Tem certeza que deseja excluir este registro?')) {
       this.aniversarioService.deletar(id).subscribe({
@@ -54,7 +62,8 @@ export class AniversarioComponent implements OnInit  {
           this.dataSource.data = this.dataSource.data.filter((aniversario: any) => aniversario.id !== id);
         },
         error: () => {
-          console.error('Erro ao deletar registro!');
+          this.mensagemOverlay.set('Erro deletar registro.');
+          this.mostrarOverlay.set(true);
         }
       });
     }

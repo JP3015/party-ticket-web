@@ -26,6 +26,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'convidados/:id',
+    loadChildren: () =>
+      import('./features/convidados/convidado.module').then((m) => m.ConvidadoModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'baladas',
     loadChildren: () =>
       import('./features/baladas/balada.module').then((m) => m.BaladaModule),

@@ -41,6 +41,9 @@
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="verConvidados(element.id)">
+            <mat-icon>group</mat-icon>
+          </button>
           <button mat-icon-button color="primary">
             <mat-icon>edit</mat-icon>
           </button>
