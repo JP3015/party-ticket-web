@@ -16,3 +16,8 @@
 mat-paginator {
   width: 100%;
 }
+
+
+button + button {
+  margin-left: 8px; 
+}
