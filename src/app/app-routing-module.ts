@@ -32,6 +32,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'compras/:id',
+    loadChildren: () =>
+      import('./features/compras/compra.module').then((m) => m.CompraModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'baladas',
     loadChildren: () =>
       import('./features/baladas/balada.module').then((m) => m.BaladaModule),

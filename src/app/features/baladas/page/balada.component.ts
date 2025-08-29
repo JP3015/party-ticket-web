@@ -7,6 +7,7 @@ import { MatTableModule } from '@angular/material/table';
 import { OverlayComponent } from '../../../shared/components/overlay/overlay.component';
 import { MatIconModule } from '@angular/material/icon';
 import { BaladaService } from '../../../core/services/balada.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-balada',
@@ -31,7 +32,10 @@ export class BaladaComponent implements OnInit  {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private baladaService: BaladaService) {}
+  constructor(
+    private baladaService: BaladaService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.baladaService.listar().subscribe({
@@ -57,6 +61,10 @@ export class BaladaComponent implements OnInit  {
         }
       });
     }
+  }
+
+  verCompras(idBalada: number): void {
+    this.router.navigate(['/compras', idBalada]);
   }
 
   fecharOverlay() {

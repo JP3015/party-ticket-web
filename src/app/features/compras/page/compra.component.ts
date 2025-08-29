@@ -6,20 +6,22 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { OverlayComponent } from '../../../shared/components/overlay/overlay.component';
-import { ConvidadoService } from '../../../core/services/convidado.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
+import { CompraService } from '../../../core/services/compra.service';
 
 @Component({
-  selector: 'app-convidado',
-  templateUrl: './convidado.component.html',
+  selector: 'app-compra',
+  templateUrl: './compra.component.html',
   imports: [FormsModule, SidebarComponent, MatPaginator, MatTableModule, OverlayComponent, MatIconModule],
-  styleUrls: ['./convidado.component.css']
+  styleUrls: ['./compra.component.css']
 })
-export class ConvidadoComponent implements OnInit  {
+export class CompraComponent implements OnInit  {
   displayedColumns: string[] = [
     'nome',
     'email',
+    'quantidadeIngressos',
+    'dataCompra',
     'acoes'
   ];
 
@@ -31,7 +33,7 @@ export class ConvidadoComponent implements OnInit  {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private convidadoService: ConvidadoService,
+    private compraService: CompraService,
     private route: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef
@@ -40,14 +42,14 @@ export class ConvidadoComponent implements OnInit  {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.convidadoService.listar(+id).subscribe({
+      this.compraService.listar(+id).subscribe({
         next: (response) => {
           this.dataSource = new MatTableDataSource(response);
           this.dataSource.paginator = this.paginator;
           this.cdr.detectChanges();
         },
         error: () => {
-          this.mensagemOverlay.set('Erro listar convidados!');
+          this.mensagemOverlay.set('Erro ao listar compras!');
           this.mostrarOverlay.set(true);
         }
       });
@@ -57,7 +59,7 @@ export class ConvidadoComponent implements OnInit  {
 
   deletar(id: number): void {
     if (confirm('Tem certeza que deseja excluir este registro?')) {
-      this.convidadoService.deletar(id).subscribe({
+      this.compraService.deletar(id).subscribe({
         next: () => {
           this.dataSource.data = this.dataSource.data.filter((convidado: any) => convidado.id !== id);
         },
@@ -70,9 +72,9 @@ export class ConvidadoComponent implements OnInit  {
   }
 
   voltar() {
-    this.router.navigate(['/aniversarios']);
+    this.router.navigate(['/baladas']);
   }
-
+  
   fecharOverlay() {
       this.mostrarOverlay.set(false); 
   }
