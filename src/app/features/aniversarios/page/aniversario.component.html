@@ -1,4 +1,5 @@
 <app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()" (closed)="fecharOverlay()"></app-overlay>
+@if (criarAniversario == false) {
   <div class="table-container">
     <br>
     <h2>Aniversários</h2>
@@ -58,6 +59,133 @@
     </table>
 
     <mat-paginator [pageSize]="8" showFirstLastButtons></mat-paginator>
+    <br>
+    <button class='btn block-cube block-cube-hover btn-third' type='button' (click)="criarAniversario = true">
+      <div class='bg-top'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg-right'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='text'>
+        Criar Aniversário
+      </div>
+    </button>
   </div>
-  <app-sidebar></app-sidebar>
+}
+@else{
+<form autocomplete='off' class='form' (ngSubmit)="criar()">
+  <div class='control'>
+    <h1>
+      Criar Aniversário
+    </h1>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='nomeEvento' placeholder='Nome do Evento' type='text' [(ngModel)]="aniversario.nomeEvento" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='data' placeholder='Data' type='date' [(ngModel)]="aniversario.data" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='local' placeholder='Local' type='text' [(ngModel)]="aniversario.local" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='capacidade' placeholder='Capacidade' type='number' [(ngModel)]="aniversario.capacidade" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='nomeAniversariante' placeholder='Nome do Aniversariante' type='text' [(ngModel)]="aniversario.nomeAniversariante" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='idadeAniversariante' placeholder='Idade do Aniversariante' type='number' [(ngModel)]="aniversario.idadeAniversariante" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+
+  <button class='btn block-cube block-cube-hover' type='button' (click)="criar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Criar
+    </div>
+  </button>
+  <br>
+  <button class='btn block-cube block-cube-hover btn-secondary' type='button' (click)="voltar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Voltar
+    </div>
+  </button>
+</form>
+}
+<app-sidebar></app-sidebar>
 

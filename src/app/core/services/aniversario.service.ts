@@ -21,6 +21,13 @@ export class AniversarioService {
         return this.http.get<any>(this.apiUrl, { headers });
     }
 
+    criar(aniversario: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.post<any>(this.apiUrl, aniversario, { headers });
+    }
+
     deletar(id: any): Observable<any> {
         const token = this.authService.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

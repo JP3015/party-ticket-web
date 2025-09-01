@@ -26,9 +26,20 @@ export class BaladaComponent implements OnInit  {
     'acoes'
   ];
 
+  balada = {
+      nomeEvento: '',
+      data: '',
+      local: '',
+      capacidade: '',
+      ingressosDisponiveis: '',
+      valorInvestido: '',
+      receitaEstimada: ''
+  };
+
   dataSource = new MatTableDataSource<any>([]);
   mostrarOverlay = signal(false);
   mensagemOverlay = signal('');
+  criarBalada = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -44,10 +55,23 @@ export class BaladaComponent implements OnInit  {
         this.dataSource.paginator = this.paginator;
       },
       error: () => {
-        this.mensagemOverlay.set('Erro ao listar os aniversários.');
+        this.mensagemOverlay.set('Erro ao listar as baladas.');
         this.mostrarOverlay.set(true);
       }
     });
+  }
+
+  criar() {
+      this.baladaService.criar(this.balada).subscribe({
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
+          this.mostrarOverlay.set(true);
+        },
+        error: (response) => {
+          this.mensagemOverlay.set(response.error.erro || 'Erro ao criar balada.');
+          this.mostrarOverlay.set(true);
+        }
+      });
   }
   
   deletar(id: number): void {
@@ -66,8 +90,22 @@ export class BaladaComponent implements OnInit  {
   verCompras(idBalada: number): void {
     this.router.navigate(['/compras', idBalada]);
   }
-
+  voltar(){
+    this.criarBalada = false;
+    this.balada = {
+      nomeEvento: '',
+      data: '',
+      local: '',
+      capacidade: '',
+      ingressosDisponiveis: '',
+      valorInvestido: '',
+      receitaEstimada: ''
+    };
+    this.ngOnInit()
+  }
+  
   fecharOverlay() {
-      this.mostrarOverlay.set(false); 
+      this.mostrarOverlay.set(false);
+      this.voltar();
   }
  }

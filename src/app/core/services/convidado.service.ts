@@ -21,6 +21,12 @@ export class ConvidadoService {
         return this.http.get<any>(`${this.apiUrl}/listar/${idAniversario}`, { headers });
     }
 
+    criar(convidado: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.post<any>(this.apiUrl, convidado, { headers });
+    }
 
     deletar(id: any): Observable<any> {
         const token = this.authService.getToken();

@@ -1,4 +1,5 @@
 <app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()" (closed)="fecharOverlay()"></app-overlay>
+@if (criarConvidado == false) {
   <div class="table-container">
     <br>
     <h2>Convidados</h2>
@@ -32,7 +33,21 @@
 
     <mat-paginator [pageSize]="8" showFirstLastButtons></mat-paginator>
     <br>
-    <button class='btn block-cube block-cube-hover btn-secondary' type='button' (click)="voltar()">
+    <button class='btn block-cube block-cube-hover btn-third' type='button' (click)="criarConvidado = true">
+      <div class='bg-top'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg-right'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='text'>
+        Criar Convidado
+      </div>
+    </button>
+    <button class='btn block-cube block-cube-hover btn-fourth' type='button' (click)="voltarAniversario()">
       <div class='bg-top'>
         <div class='bg-inner'></div>
       </div>
@@ -47,5 +62,92 @@
       </div>
     </button>
   </div>
-  <app-sidebar></app-sidebar>
+}
+@else{
+<form autocomplete='off' class='form' (ngSubmit)="criar()">
+  <div class='control'>
+    <h1>
+      Criar Convidado
+    </h1>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='nome' placeholder='Nome do Convidado' type='text' [(ngModel)]="convidado.nome" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='email' placeholder='Email' type='text' [(ngModel)]="convidado.email" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='cpf' placeholder='Cpf' type='cpf' [(ngModel)]="convidado.cpf" mask="000.000.000-00" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='rg' placeholder='Rg' type='rg' [(ngModel)]="convidado.rg" mask="00.000.000-0" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <button class='btn block-cube block-cube-hover' type='button' (click)="criar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Criar
+    </div>
+  </button>
+  <br>
+  <button class='btn block-cube block-cube-hover btn-secondary' type='button' (click)="voltar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Voltar
+    </div>
+  </button>
+</form>
+}
+<app-sidebar></app-sidebar>
 

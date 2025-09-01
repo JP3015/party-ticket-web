@@ -9,11 +9,15 @@ import { OverlayComponent } from '../../../shared/components/overlay/overlay.com
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { CompraService } from '../../../core/services/compra.service';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-compra',
   templateUrl: './compra.component.html',
-  imports: [FormsModule, SidebarComponent, MatPaginator, MatTableModule, OverlayComponent, MatIconModule],
+  imports: [FormsModule, SidebarComponent, MatPaginator, MatTableModule, OverlayComponent, MatIconModule, NgxMaskDirective, NgxMaskPipe],
+  providers: [
+    provideNgxMask()
+  ],
   styleUrls: ['./compra.component.css']
 })
 export class CompraComponent implements OnInit  {
@@ -28,6 +32,7 @@ export class CompraComponent implements OnInit  {
   dataSource = new MatTableDataSource<any>([]);
   mostrarOverlay = signal(false);
   mensagemOverlay = signal('');
+  criarCompra = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -39,9 +44,22 @@ export class CompraComponent implements OnInit  {
     private cdr: ChangeDetectorRef
   ) {}
 
+  compra = {
+      nome: '',
+      email: '',
+      cpf: '',
+      rg: '',
+      quantidadeIngressos: '',
+      dataCompra: new Date().toISOString().split('T')[0],
+      balada: {
+        id: 0
+      }
+  };
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      this.compra.balada.id = +id;
       this.compraService.listar(+id).subscribe({
         next: (response) => {
           this.dataSource = new MatTableDataSource(response);
@@ -56,6 +74,18 @@ export class CompraComponent implements OnInit  {
     }
   }
 
+  criar() {
+      this.compraService.criar(this.compra).subscribe({
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
+          this.mostrarOverlay.set(true);
+        },
+        error: (response) => {
+          this.mensagemOverlay.set(response.error.erro || 'Erro ao cadastrar compra.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+  }
 
   deletar(id: number): void {
     if (confirm('Tem certeza que deseja excluir este registro?')) {
@@ -71,11 +101,28 @@ export class CompraComponent implements OnInit  {
     }
   }
 
-  voltar() {
+  voltarBalada() {
     this.router.navigate(['/baladas']);
   }
   
+  voltar(){
+    this.criarCompra = false;
+    this.compra = {
+      nome: '',
+      email: '',
+      cpf: '',
+      rg: '',
+      quantidadeIngressos: '',
+      dataCompra: new Date().toISOString().split('T')[0],
+      balada: {
+        id: 0
+      }
+    };
+    this.ngOnInit()
+  }
+
   fecharOverlay() {
       this.mostrarOverlay.set(false); 
+      this.voltar();
   }
  }

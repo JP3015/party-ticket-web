@@ -21,9 +21,6 @@ button + button {
   margin-left: 8px; 
 }
 
-.btn.btn-secondary {
-  float: right;
-  padding: 8px 24px;   
-  font-size: 14px;     
-  font-weight: bold; 
+.btn .text {
+  color: #fff;
 }

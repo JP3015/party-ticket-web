@@ -21,6 +21,13 @@ export class BaladaService {
         return this.http.get<any>(this.apiUrl, { headers });
     }
 
+    criar(balada: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.post<any>(this.apiUrl, balada, { headers });
+    }
+
     deletar(id: any): Observable<any> {
         const token = this.authService.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

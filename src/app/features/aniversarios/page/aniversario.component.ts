@@ -27,9 +27,19 @@ export class AniversarioComponent implements OnInit  {
     'acoes'
   ];
 
+  aniversario = {
+      nomeEvento: '',
+      data: '',
+      local: '',
+      capacidade: '',
+      nomeAniversariante: '',
+      idadeAniversariante: ''
+  };
+
   dataSource = new MatTableDataSource<any>([]);
   mostrarOverlay = signal(false);
   mensagemOverlay = signal('');
+  criarAniversario = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -55,6 +65,19 @@ export class AniversarioComponent implements OnInit  {
     this.router.navigate(['/convidados', idAniversario]);
   }
 
+  criar() {
+      this.aniversarioService.criar(this.aniversario).subscribe({
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
+          this.mostrarOverlay.set(true);
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao criar aniversário.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+  }
+
   deletar(id: number): void {
     if (confirm('Tem certeza que deseja excluir este registro?')) {
       this.aniversarioService.deletar(id).subscribe({
@@ -69,8 +92,21 @@ export class AniversarioComponent implements OnInit  {
     }
   }
 
+  voltar(){
+    this.criarAniversario = false;
+    this.aniversario = {
+      nomeEvento: '',
+      data: '',
+      local: '',
+      capacidade: '',
+      nomeAniversariante: '',
+      idadeAniversariante: ''
+    };
+    this.ngOnInit()
+  }
   
   fecharOverlay() {
-      this.mostrarOverlay.set(false); 
+      this.mostrarOverlay.set(false);
+      this.voltar();
   }
  }

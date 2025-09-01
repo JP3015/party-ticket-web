@@ -20,3 +20,8 @@ mat-paginator {
 button + button {
   margin-left: 8px; 
 }
+
+.btn .text {
+  color: #fff;
+}
+
