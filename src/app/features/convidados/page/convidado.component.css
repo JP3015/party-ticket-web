@@ -24,3 +24,7 @@ button + button {
 .btn .text {
   color: #fff;
 }
+
+.btn-third{
+  margin-left: 20px;
+}

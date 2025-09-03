@@ -28,11 +28,17 @@ export class BaladaService {
         return this.http.post<any>(this.apiUrl, balada, { headers });
     }
 
+    editar(balada: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.put<any>(`${this.apiUrl}/${balada.id}`, balada, { headers });
+    }
+
     deletar(id: any): Observable<any> {
         const token = this.authService.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
         return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
     }
-
 }

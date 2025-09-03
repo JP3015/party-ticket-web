@@ -18,7 +18,7 @@
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="editar(element)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="deletar(element.id)">
@@ -64,10 +64,10 @@
   </div>
 }
 @else{
-<form autocomplete='off' class='form' (ngSubmit)="criar()">
+<form autocomplete='off' class='form' (ngSubmit)="salvar()">
   <div class='control'>
     <h1>
-      Criar Convidado
+      {{ editando ? 'Editar Convidado' : 'Criar Convidado' }}
     </h1>
   </div>
   <div class='control block-cube block-input'>
@@ -118,7 +118,7 @@
       <div class='bg-inner'></div>
     </div>
   </div>
-  <button class='btn block-cube block-cube-hover' type='button' (click)="criar()">
+  <button class='btn block-cube block-cube-hover' type='button' (click)="salvar()">
     <div class='bg-top'>
       <div class='bg-inner'></div>
     </div>
@@ -129,7 +129,7 @@
       <div class='bg-inner'></div>
     </div>
     <div class='text'>
-      Criar
+      {{ editando ? 'Salvar' : 'Criar' }}
     </div>
   </button>
   <br>

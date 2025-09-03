@@ -28,6 +28,13 @@ export class ConvidadoService {
         return this.http.post<any>(this.apiUrl, convidado, { headers });
     }
 
+    editar(convidado: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.put<any>(`${this.apiUrl}/${convidado.id}`, convidado, { headers });
+    }
+
     deletar(id: any): Observable<any> {
         const token = this.authService.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

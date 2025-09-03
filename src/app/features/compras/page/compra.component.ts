@@ -33,6 +33,7 @@ export class CompraComponent implements OnInit  {
   mostrarOverlay = signal(false);
   mensagemOverlay = signal('');
   criarCompra = false;
+  editando = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,6 +46,7 @@ export class CompraComponent implements OnInit  {
   ) {}
 
   compra = {
+      id: null,
       nome: '',
       email: '',
       cpf: '',
@@ -74,7 +76,27 @@ export class CompraComponent implements OnInit  {
     }
   }
 
-  criar() {
+
+ editar(element: any) {
+    this.compra = { ...element }; 
+    this.criarCompra = true;
+    this.editando = true;
+  }
+
+  salvar() {
+    if (this.editando) {
+        this.compraService.editar(this.compra).subscribe({
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
+          this.mostrarOverlay.set(true);
+          this.voltar();
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao atualizar balada.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    } else {
       this.compraService.criar(this.compra).subscribe({
         next: (response) => {
           this.mensagemOverlay.set(response.mensagem);
@@ -85,6 +107,7 @@ export class CompraComponent implements OnInit  {
           this.mostrarOverlay.set(true);
         }
       });
+    }
   }
 
   deletar(id: number): void {
@@ -107,7 +130,9 @@ export class CompraComponent implements OnInit  {
   
   voltar(){
     this.criarCompra = false;
+    this.editando = false;
     this.compra = {
+      id: null,
       nome: '',
       email: '',
       cpf: '',

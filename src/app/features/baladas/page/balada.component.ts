@@ -27,6 +27,7 @@ export class BaladaComponent implements OnInit  {
   ];
 
   balada = {
+      id: null,
       nomeEvento: '',
       data: '',
       local: '',
@@ -40,6 +41,7 @@ export class BaladaComponent implements OnInit  {
   mostrarOverlay = signal(false);
   mensagemOverlay = signal('');
   criarBalada = false;
+  editando = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -61,17 +63,37 @@ export class BaladaComponent implements OnInit  {
     });
   }
 
-  criar() {
+  editar(element: any) {
+    this.balada = { ...element }; 
+    this.criarBalada = true;
+    this.editando = true;
+  }
+
+  salvar() {
+    if (this.editando) {
+        this.baladaService.editar(this.balada).subscribe({
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
+          this.mostrarOverlay.set(true);
+          this.voltar();
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao atualizar balada.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    } else {
       this.baladaService.criar(this.balada).subscribe({
         next: (response) => {
           this.mensagemOverlay.set(response.mensagem);
           this.mostrarOverlay.set(true);
         },
-        error: (response) => {
-          this.mensagemOverlay.set(response.error.erro || 'Erro ao criar balada.');
+        error: () => {
+          this.mensagemOverlay.set('Erro ao criar balada.');
           this.mostrarOverlay.set(true);
         }
       });
+    }
   }
   
   deletar(id: number): void {
@@ -93,6 +115,7 @@ export class BaladaComponent implements OnInit  {
   voltar(){
     this.criarBalada = false;
     this.balada = {
+      id: null,
       nomeEvento: '',
       data: '',
       local: '',
@@ -108,4 +131,4 @@ export class BaladaComponent implements OnInit  {
       this.mostrarOverlay.set(false);
       this.voltar();
   }
- }
+}

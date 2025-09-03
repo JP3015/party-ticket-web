@@ -31,15 +31,17 @@ export class ConvidadoComponent implements OnInit  {
   mostrarOverlay = signal(false);
   mensagemOverlay = signal('');
   criarConvidado = false;
+  editando = false;
 
   convidado = {
-      nome: '',
-      email: '',
-      cpf: '',
-      rg: '',
-      aniversario: {
-        id: 0
-      }
+    id: null,
+    nome: '',
+    email: '',
+    cpf: '',
+    rg: '',
+    aniversario: {
+      id: 0
+    }
   };
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -70,8 +72,27 @@ export class ConvidadoComponent implements OnInit  {
     }
   }
 
-  criar() {
-      this.convidadoService.criar(this.convidado).subscribe({
+  editar(element: any) {
+    this.convidado = { ...element }; 
+    this.criarConvidado = true;
+    this.editando = true;
+  }
+
+  salvar() {
+    if (this.editando) {
+        this.convidadoService.editar(this.convidado).subscribe({
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
+          this.mostrarOverlay.set(true);
+          this.voltar();
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao atualizar convidado.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    } else {
+       this.convidadoService.criar(this.convidado).subscribe({
         next: (response) => {
           this.mensagemOverlay.set(response.mensagem);
           this.mostrarOverlay.set(true);
@@ -81,6 +102,7 @@ export class ConvidadoComponent implements OnInit  {
           this.mostrarOverlay.set(true);
         }
       });
+    }
   }
 
   deletar(id: number): void {
@@ -103,7 +125,9 @@ export class ConvidadoComponent implements OnInit  {
 
   voltar(){
     this.criarConvidado = false;
+    this.editando = false;
     this.convidado = {
+        id: null,
         nome: '',
         email: '',
         cpf: '',

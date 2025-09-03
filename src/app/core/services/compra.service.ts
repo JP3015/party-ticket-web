@@ -28,6 +28,13 @@ export class CompraService {
         return this.http.post<any>(this.apiUrl, compra, { headers });
     }
 
+    editar(compra: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.put<any>(`${this.apiUrl}/${compra.id}`, compra, { headers });
+    }
+
     deletar(id: any): Observable<any> {
         const token = this.authService.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

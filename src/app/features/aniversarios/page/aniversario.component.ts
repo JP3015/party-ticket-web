@@ -28,6 +28,7 @@ export class AniversarioComponent implements OnInit  {
   ];
 
   aniversario = {
+      id: null,
       nomeEvento: '',
       data: '',
       local: '',
@@ -40,6 +41,7 @@ export class AniversarioComponent implements OnInit  {
   mostrarOverlay = signal(false);
   mensagemOverlay = signal('');
   criarAniversario = false;
+  editando = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -65,7 +67,26 @@ export class AniversarioComponent implements OnInit  {
     this.router.navigate(['/convidados', idAniversario]);
   }
 
-  criar() {
+  editar(element: any) {
+    this.aniversario = { ...element }; 
+    this.criarAniversario = true;
+    this.editando = true;
+  }
+
+  salvar() {
+    if (this.editando) {
+        this.aniversarioService.editar(this.aniversario).subscribe({
+        next: (response) => {
+          this.mensagemOverlay.set(response.mensagem);
+          this.mostrarOverlay.set(true);
+          this.voltar();
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao atualizar aniversário.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    } else {
       this.aniversarioService.criar(this.aniversario).subscribe({
         next: (response) => {
           this.mensagemOverlay.set(response.mensagem);
@@ -76,6 +97,7 @@ export class AniversarioComponent implements OnInit  {
           this.mostrarOverlay.set(true);
         }
       });
+    }
   }
 
   deletar(id: number): void {
@@ -94,7 +116,9 @@ export class AniversarioComponent implements OnInit  {
 
   voltar(){
     this.criarAniversario = false;
+    this.editando = false;
     this.aniversario = {
+      id: null,
       nomeEvento: '',
       data: '',
       local: '',

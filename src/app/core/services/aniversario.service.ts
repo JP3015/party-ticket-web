@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 })
 export class AniversarioService {
     private apiUrl = 'http://localhost:8080/aniversarios';
+    
 
     constructor(
         private http: HttpClient,
@@ -28,11 +29,17 @@ export class AniversarioService {
         return this.http.post<any>(this.apiUrl, aniversario, { headers });
     }
 
+    editar(aniversario: any): Observable<any> {
+        const token = this.authService.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        return this.http.put<any>(`${this.apiUrl}/${aniversario.id}`, aniversario, { headers });
+    }
+
     deletar(id: any): Observable<any> {
         const token = this.authService.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
         return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
     }
-
 }

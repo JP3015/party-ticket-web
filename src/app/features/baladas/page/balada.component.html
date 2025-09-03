@@ -35,7 +35,7 @@
           <button mat-icon-button color="accent" (click)="verCompras(element.id)">
             <mat-icon>group</mat-icon>
           </button>
-          <button mat-icon-button color="primary">
+          <button mat-icon-button color="primary" (click)="editar(element)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="deletar(element.id)">
@@ -60,16 +60,16 @@
         <div class='bg-inner'></div>
       </div>
       <div class='text'>
-        Criar Aniversário
+        Criar Balada
       </div>
     </button>
   </div>
 }
 @else{
-<form autocomplete='off' class='form' (ngSubmit)="criar()">
+<form autocomplete='off' class='form' (ngSubmit)="salvar()">
   <div class='control'>
     <h1>
-      Criar Balada
+      {{ editando ? 'Editar Balada' : 'Criar Balada' }}
     </h1>
   </div>
   <div class='control block-cube block-input'>
@@ -156,7 +156,7 @@
       <div class='bg-inner'></div>
     </div>
   </div>
-  <button class='btn block-cube block-cube-hover' type='button' (click)="criar()">
+  <button class='btn block-cube block-cube-hover' type='button' (click)="salvar()">
     <div class='bg-top'>
       <div class='bg-inner'></div>
     </div>
@@ -167,7 +167,7 @@
       <div class='bg-inner'></div>
     </div>
     <div class='text'>
-      Criar
+      {{ editando ? 'Salvar' : 'Criar' }}
     </div>
   </button>
   <br>
