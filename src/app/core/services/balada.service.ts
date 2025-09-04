@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,35 +9,26 @@ export class BaladaService {
     private apiUrl = 'http://localhost:8080/baladas';
 
     constructor(
-        private http: HttpClient,
-        private authService: AuthService
+        private http: HttpClient
     ) {}
 
     listar(): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<any>(this.apiUrl);
+    }
 
-        return this.http.get<any>(this.apiUrl, { headers });
+    pesquisar(pesquisa: any): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/nome/${pesquisa}`);
     }
 
     criar(balada: any): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-        return this.http.post<any>(this.apiUrl, balada, { headers });
+        return this.http.post<any>(this.apiUrl, balada);
     }
 
     editar(balada: any): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-        return this.http.put<any>(`${this.apiUrl}/${balada.id}`, balada, { headers });
+        return this.http.put<any>(`${this.apiUrl}/${balada.id}`, balada);
     }
 
     deletar(id: any): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-        return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+        return this.http.delete<any>(`${this.apiUrl}/${id}`);
     }
 }

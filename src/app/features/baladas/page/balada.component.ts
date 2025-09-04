@@ -42,6 +42,7 @@ export class BaladaComponent implements OnInit  {
   mensagemOverlay = signal('');
   criarBalada = false;
   editando = false;
+  pesquisa = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -69,6 +70,24 @@ export class BaladaComponent implements OnInit  {
     this.editando = true;
   }
 
+  pesquisar(pesquisa: string) {
+    if(pesquisa == '' || pesquisa == null){
+      this.ngOnInit();
+    }
+    else{
+      this.baladaService.pesquisar(pesquisa).subscribe({
+        next: (dados) => {
+          this.dataSource.data = dados;
+          this.dataSource.paginator = this.paginator;
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao pesquisar.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    }
+  }
+
   salvar() {
     if (this.editando) {
         this.baladaService.editar(this.balada).subscribe({
@@ -88,8 +107,8 @@ export class BaladaComponent implements OnInit  {
           this.mensagemOverlay.set(response.mensagem);
           this.mostrarOverlay.set(true);
         },
-        error: () => {
-          this.mensagemOverlay.set('Erro ao criar balada.');
+        error: (response) => {
+          this.mensagemOverlay.set(response.error.erro || 'Erro ao criar balada.');
           this.mostrarOverlay.set(true);
         }
       });

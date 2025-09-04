@@ -3,6 +3,38 @@
   <div class="table-container">
     <br>
     <h2>Convidados</h2>
+    <form autocomplete='off' class='form form-secondary'>
+      <h3>Pesquisar</h3>
+      <div class="search-row">
+        <div class='control block-cube block-input'>
+          <input name='nome' placeholder='Nome' type='text' [(ngModel)]="pesquisa" required>
+          <div class='bg-top'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg-right'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg'>
+            <div class='bg-inner'></div>
+          </div>
+        </div>
+        <br>
+        <button class='btn block-cube block-cube-hover' type='button' (click)="pesquisar(pesquisa)">
+          <div class='bg-top'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg-right'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='text'>
+            Pesquisar
+          </div>
+        </button>
+      </div>
+    </form>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef>Nome</th>

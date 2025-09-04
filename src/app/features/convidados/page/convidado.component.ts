@@ -32,6 +32,7 @@ export class ConvidadoComponent implements OnInit  {
   mensagemOverlay = signal('');
   criarConvidado = false;
   editando = false;
+  pesquisa = '';
 
   convidado = {
     id: null,
@@ -76,6 +77,24 @@ export class ConvidadoComponent implements OnInit  {
     this.convidado = { ...element }; 
     this.criarConvidado = true;
     this.editando = true;
+  }
+
+  pesquisar(pesquisa: string) {
+    if(pesquisa == '' || pesquisa == null){
+      this.ngOnInit();
+    }
+    else{
+      this.convidadoService.pesquisar(pesquisa).subscribe({
+        next: (dados) => {
+          this.dataSource.data = dados;
+          this.dataSource.paginator = this.paginator;
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao pesquisar.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    }
   }
 
   salvar() {

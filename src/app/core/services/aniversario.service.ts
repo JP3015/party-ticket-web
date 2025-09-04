@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +11,25 @@ export class AniversarioService {
 
     constructor(
         private http: HttpClient,
-        private authService: AuthService
     ) {}
 
     listar(): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<any>(this.apiUrl);
+    }
 
-        return this.http.get<any>(this.apiUrl, { headers });
+    pesquisar(pesquisa: any): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/nome/${pesquisa}`);
     }
 
     criar(aniversario: any): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-        return this.http.post<any>(this.apiUrl, aniversario, { headers });
+        return this.http.post<any>(this.apiUrl, aniversario);
     }
 
     editar(aniversario: any): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-        return this.http.put<any>(`${this.apiUrl}/${aniversario.id}`, aniversario, { headers });
+        return this.http.put<any>(`${this.apiUrl}/${aniversario.id}`, aniversario);
     }
 
     deletar(id: any): Observable<any> {
-        const token = this.authService.getToken();
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
-        return this.http.delete<any>(`${this.apiUrl}/${id}`, { headers });
+        return this.http.delete<any>(`${this.apiUrl}/${id}`);
     }
 }

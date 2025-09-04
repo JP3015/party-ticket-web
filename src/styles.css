@@ -160,3 +160,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-weight: bold; 
 }
 
+
+.form-secondary{
+  padding-top: 0;
+  width: 50%;
+}
+
+
+.search-row {
+  display: flex;
+  gap: 10px; 
+  align-items: center; 
+}
+
+.search-row .control {
+  margin: 0;
+  width: 82%;             
+}
+
+.search-row .btn {
+  width: 18%;
+  display: block;
+  padding: 14px 16px;
+  background: transparent;
+  outline: none;
+  border: 0;
+  color: #fff;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 13px;   
+}
+
+

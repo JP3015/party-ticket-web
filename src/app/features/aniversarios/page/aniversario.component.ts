@@ -42,6 +42,7 @@ export class AniversarioComponent implements OnInit  {
   mensagemOverlay = signal('');
   criarAniversario = false;
   editando = false;
+  pesquisa = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -73,6 +74,24 @@ export class AniversarioComponent implements OnInit  {
     this.editando = true;
   }
 
+  pesquisar(pesquisa: string) {
+    if(pesquisa == '' || pesquisa == null){
+      this.ngOnInit();
+    }
+    else{
+      this.aniversarioService.pesquisar(pesquisa).subscribe({
+        next: (dados) => {
+          this.dataSource.data = dados;
+          this.dataSource.paginator = this.paginator;
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao pesquisar.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    }
+  }
+
   salvar() {
     if (this.editando) {
         this.aniversarioService.editar(this.aniversario).subscribe({
@@ -92,8 +111,8 @@ export class AniversarioComponent implements OnInit  {
           this.mensagemOverlay.set(response.mensagem);
           this.mostrarOverlay.set(true);
         },
-        error: () => {
-          this.mensagemOverlay.set('Erro ao criar aniversário.');
+        error: (response) => {
+          this.mensagemOverlay.set(response.error.erro || 'Erro ao criar aniversário.');
           this.mostrarOverlay.set(true);
         }
       });

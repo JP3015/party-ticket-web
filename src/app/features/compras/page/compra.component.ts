@@ -34,6 +34,7 @@ export class CompraComponent implements OnInit  {
   mensagemOverlay = signal('');
   criarCompra = false;
   editando = false;
+  pesquisa = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -81,6 +82,24 @@ export class CompraComponent implements OnInit  {
     this.compra = { ...element }; 
     this.criarCompra = true;
     this.editando = true;
+  }
+
+  pesquisar(pesquisa: string) {
+    if(pesquisa == '' || pesquisa == null){
+      this.ngOnInit();
+    }
+    else{
+      this.compraService.pesquisar(pesquisa).subscribe({
+        next: (dados) => {
+          this.dataSource.data = dados;
+          this.dataSource.paginator = this.paginator;
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao pesquisar.');
+          this.mostrarOverlay.set(true);
+        }
+      });
+    }
   }
 
   salvar() {
