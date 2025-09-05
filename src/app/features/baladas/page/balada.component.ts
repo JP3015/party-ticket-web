@@ -8,6 +8,7 @@ import { OverlayComponent } from '../../../shared/components/overlay/overlay.com
 import { MatIconModule } from '@angular/material/icon';
 import { BaladaService } from '../../../core/services/balada.service';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../../core/services/usuario.service';
 
 @Component({
   selector: 'app-balada',
@@ -43,15 +44,27 @@ export class BaladaComponent implements OnInit  {
   criarBalada = false;
   editando = false;
   pesquisa = '';
+  roleUsuario = '';
+  
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private baladaService: BaladaService,
+    private usuarioService: UsuarioService,
     private router: Router
   ) {}
 
   ngOnInit() {
+    this.usuarioService.BuscarUsuario().subscribe({
+        next: (data) => {
+          this.roleUsuario = data.role;
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao buscar usuário.');
+          this.mostrarOverlay.set(true);
+        }
+    });
     this.baladaService.listar().subscribe({
       next: (dados) => {
         this.dataSource.data = dados;
@@ -68,6 +81,10 @@ export class BaladaComponent implements OnInit  {
     this.balada = { ...element }; 
     this.criarBalada = true;
     this.editando = true;
+  }
+
+  validarRole(): boolean{
+    return this.roleUsuario == 'Administrador' ? true : false;
   }
 
   pesquisar(pesquisa: string) {
@@ -133,6 +150,7 @@ export class BaladaComponent implements OnInit  {
   }
   voltar(){
     this.criarBalada = false;
+    this.editando = false;
     this.balada = {
       id: null,
       nomeEvento: '',

@@ -1,7 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';
 import { SidebarComponent } from "../../../shared/components/sidebar/sidebar.component";
 import { UsuarioService } from '../../../core/services/usuario.service';
 import { OverlayComponent } from '../../../shared/components/overlay/overlay.component';

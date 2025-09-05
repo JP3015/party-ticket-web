@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AniversarioService } from '../../../core/services/aniversario.service';
 import { OverlayComponent } from '../../../shared/components/overlay/overlay.component';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../../core/services/usuario.service';
 
 @Component({
   selector: 'app-aniversario',
@@ -43,15 +44,26 @@ export class AniversarioComponent implements OnInit  {
   criarAniversario = false;
   editando = false;
   pesquisa = '';
+  roleUsuario = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private aniversarioService: AniversarioService,
+    private usuarioService: UsuarioService,
     private router: Router
   ) {}
 
   ngOnInit() {
+    this.usuarioService.BuscarUsuario().subscribe({
+        next: (data) => {
+          this.roleUsuario = data.role;
+        },
+        error: () => {
+          this.mensagemOverlay.set('Erro ao buscar usuário.');
+          this.mostrarOverlay.set(true);
+        }
+    });
     this.aniversarioService.listar().subscribe({
       next: (dados) => {
         this.dataSource.data = dados;
@@ -72,6 +84,10 @@ export class AniversarioComponent implements OnInit  {
     this.aniversario = { ...element }; 
     this.criarAniversario = true;
     this.editando = true;
+  }
+
+  validarRole(): boolean{
+    return this.roleUsuario == 'Administrador' ? true : false;
   }
 
   pesquisar(pesquisa: string) {

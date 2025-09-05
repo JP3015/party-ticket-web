@@ -67,12 +67,14 @@
           <button mat-icon-button color="accent" (click)="verCompras(element.id)">
             <mat-icon>group</mat-icon>
           </button>
+          @if(validarRole()){
           <button mat-icon-button color="primary" (click)="editar(element)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="deletar(element.id)">
             <mat-icon>delete</mat-icon>
           </button>
+          }
         </td>
       </ng-container>
 
@@ -81,6 +83,7 @@
     </table>
     <mat-paginator [pageSize]="8" showFirstLastButtons></mat-paginator>
     <br>
+    @if(validarRole()){
     <button class='btn block-cube block-cube-hover btn-third' type='button' (click)="criarBalada = true">
       <div class='bg-top'>
         <div class='bg-inner'></div>
@@ -95,6 +98,7 @@
         Criar Balada
       </div>
     </button>
+    }
   </div>
 }
 @else{
