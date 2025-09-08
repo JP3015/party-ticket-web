@@ -132,3 +132,64 @@ h1 {
 .block-cube.block-cube-hover:focus .bg .bg-inner, .block-cube.block-cube-hover:hover .bg .bg-inner {
   top: 100%;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.btn-secondary .bg-top,
+.btn-secondary .bg,
+.btn-secondary .bg-right,
+.btn-fourth .bg-top,
+.btn-fourth .bg,
+.btn-fourth .bg-right {
+  background: linear-gradient(90deg, #790000 0%, #b30000 37%, #ff4d4d 94%);
+}
+
+.btn-secondary .text {
+  color: #fff;
+}
+
+.btn {
+  border: none;       
+  outline: none;       
+}
+
+.btn.btn-third, .btn.btn-fourth{
+  float: right;
+  padding: 8px 24px;   
+  font-size: 14px;     
+  font-weight: bold; 
+}
+
+
+.form-secondary{
+  padding-top: 0;
+  width: 50%;
+}
+
+
+.search-row {
+  display: flex;
+  gap: 10px; 
+  align-items: center; 
+}
+
+.search-row .control {
+  margin: 0;
+  width: 82%;             
+}
+
+.search-row .btn {
+  width: 18%;
+  display: block;
+  padding: 14px 16px;
+  background: transparent;
+  outline: none;
+  border: 0;
+  color: #fff;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 13px;   
+}
+
+

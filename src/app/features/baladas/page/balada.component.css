@@ -1,0 +1,29 @@
+.table-container {
+  width: 100%;          
+  max-width: 1200px;   
+  margin: 20px auto;   
+}
+
+.table-wrapper {
+  overflow-x: auto;    
+}
+
+.full-width {
+  width: 100%;         
+  min-width: 700px;    
+}
+
+mat-paginator {
+  width: 100%;
+}
+
+
+button + button {
+  margin-left: 8px; 
+}
+
+.btn .text {
+  color: #fff;
+}
+
+

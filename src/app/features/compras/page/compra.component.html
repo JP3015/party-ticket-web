@@ -1,0 +1,208 @@
+<app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()" (closed)="fecharOverlay()"></app-overlay>
+@if (criarCompra == false) {
+<form autocomplete='off'>
+  <div class="table-container">
+    <br>
+    <h2>Compras</h2>
+    <form autocomplete='off' class='form form-secondary'>
+      <h3>Pesquisar</h3>
+      <div class="search-row">
+        <div class='control block-cube block-input'>
+          <input name='nome' placeholder='Nome' type='text' [(ngModel)]="pesquisa" required>
+          <div class='bg-top'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg-right'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg'>
+            <div class='bg-inner'></div>
+          </div>
+        </div>
+        <br>
+        <button class='btn block-cube block-cube-hover' type='button' (click)="pesquisar(pesquisa)">
+          <div class='bg-top'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg-right'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='bg'>
+            <div class='bg-inner'></div>
+          </div>
+          <div class='text'>
+            Pesquisar
+          </div>
+        </button>
+      </div>
+    </form>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantidadeIngressos">
+        <th mat-header-cell *matHeaderCellDef>Quant. de Ingressos Comprados</th>
+        <td mat-cell *matCellDef="let element">{{ element.quantidadeIngressos }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataCompra">
+        <th mat-header-cell *matHeaderCellDef>Data da Compra</th>
+        <td mat-cell *matCellDef="let element">{{ element.dataCompra }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" (click)="editar(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deletar(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="8" showFirstLastButtons></mat-paginator>
+    <br>
+    <button class='btn block-cube block-cube-hover btn-third' type='button' (click)="criarCompra = true">
+      <div class='bg-top'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg-right'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='text'>
+        Criar Compra
+      </div>
+    </button>
+    <button class='btn block-cube block-cube-hover btn-fourth' type='button' (click)="voltarBalada()">
+      <div class='bg-top'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg-right'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='bg'>
+        <div class='bg-inner'></div>
+      </div>
+      <div class='text'>
+        Voltar
+      </div>
+    </button>
+  </div>
+</form> 
+}
+@else{
+<form autocomplete='off' class='form' (ngSubmit)="salvar()">
+  <div class='control'>
+    <h1>
+      {{ editando ? 'Editar Compra' : 'Criar Compra' }}
+    </h1>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='nome' placeholder='Nome do Convidado' type='text' [(ngModel)]="compra.nome" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='email' placeholder='Email' type='text' [(ngModel)]="compra.email" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='cpf' placeholder='Cpf' type='cpf' [(ngModel)]="compra.cpf" mask="000.000.000-00" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='rg' placeholder='Rg' type='rg' [(ngModel)]="compra.rg" mask="00.000.000-0" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='quantidadeIngressos' placeholder='Quant. Ingressos' type='number' [(ngModel)]="compra.quantidadeIngressos" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <button class='btn block-cube block-cube-hover' type='button' (click)="salvar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      {{ editando ? 'Salvar' : 'Criar' }}
+    </div>
+  </button>
+  <br>
+  <button class='btn block-cube block-cube-hover btn-secondary' type='button' (click)="voltar()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Voltar
+    </div>
+  </button>
+</form>
+}
+<app-sidebar></app-sidebar>
+

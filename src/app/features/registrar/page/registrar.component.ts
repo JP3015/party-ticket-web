@@ -40,6 +40,12 @@ export class RegistrarComponent {
       });
     }
 
+    
+    fecharOverlay() {
+      this.mostrarOverlay.set(false);
+      this.voltar();
+    }
+
     voltar() {
       this.router.navigate(['/']);
     }

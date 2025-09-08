@@ -1,0 +1,16 @@
+<button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+<div class="sidebar" [class.sidebar-open]="sidebarOpen">
+  <h2 class="logo">Party Ticket</h2>
+  <ul>
+    <br>
+    <li (click)="navigate('/home')">🏠 Home</li>
+    <br>
+    <li (click)="navigate('/baladas')">🎉 Baladas</li>
+    <br>
+    <li (click)="navigate('/aniversarios')">🎂 Festas de Aniversário</li>
+    <br>
+    <li (click)="navigate('/perfil')">👤 Perfil</li>
+    <br>
+    <li (click)="logout()">🚪 Logout</li>
+  </ul>
+</div>

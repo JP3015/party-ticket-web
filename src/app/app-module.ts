@@ -5,8 +5,16 @@ import { AppRoutingModule } from './app-routing-module';
 import { RouterModule } from '@angular/router';
 import { App } from './app';
 import { LoginComponent } from './features/login/page/login.component'; 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
+import { SharedModule } from './shared/shared.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { authInterceptor } from './core/services/authInterceptor';
 
+export function tokenGetter() {
+  return localStorage.getItem('token'); 
+}
 
 @NgModule({
   declarations: [
@@ -16,12 +24,24 @@ import { provideHttpClient } from '@angular/common/http';
     BrowserModule,
     RouterModule,
     AppRoutingModule,
-    LoginComponent 
+    LoginComponent,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:8080'], 
+        disallowedRoutes: ['http://localhost:4200/login'], 
+      },
+    }),
+    SharedModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideHttpClient()
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    )
   ],
   bootstrap: [App]
 })

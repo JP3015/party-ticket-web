@@ -1,48 +1,17 @@
 <app-overlay [mostrar]="mostrarOverlay()" [mensagem]="mensagemOverlay()" (closed)="fecharOverlay()"></app-overlay>
-
-<form autocomplete='off' class='form' (ngSubmit)="registrar()">
-  <div class='control'>
+@if (mudarSenha == false) {
+<form autocomplete='off' class='form'>
+  <div>
     <h1>
-      Registrar
+      Informações do perfil
     </h1>
+    <br>
+    <p><strong>Usuário:</strong> {{ user()?.username }}</p>
+    <p><strong>Email:</strong> {{ user()?.email }}</p>
+    <p><strong>Role:</strong> {{ user()?.role }}</p>
   </div>
-  <div class='control block-cube block-input'>
-    <input name='username' placeholder='Username' type='text' [(ngModel)]="usuario.nomeUsuario" required>
-    <div class='bg-top'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg-right'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg'>
-      <div class='bg-inner'></div>
-    </div>
-  </div>
-   <div class='control block-cube block-input'>
-    <input name='email' placeholder='Email' type='text' [(ngModel)]="usuario.email" required>
-    <div class='bg-top'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg-right'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg'>
-      <div class='bg-inner'></div>
-    </div>
-  </div>
-  <div class='control block-cube block-input'>
-    <input name='senha' placeholder='Senha' type='password' [(ngModel)]="usuario.senha" required>
-    <div class='bg-top'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg-right'>
-      <div class='bg-inner'></div>
-    </div>
-    <div class='bg'>
-      <div class='bg-inner'></div>
-    </div>
-  </div>
-  <button class='btn block-cube block-cube-hover' type='button' (click)="registrar()">
+  <br>
+  <button class='btn block-cube block-cube-hover' type='button' (click)="mudarSenha = true">
     <div class='bg-top'>
       <div class='bg-inner'></div>
     </div>
@@ -53,7 +22,55 @@
       <div class='bg-inner'></div>
     </div>
     <div class='text'>
-      Salvar
+      Mudar a senha
+    </div>
+  </button>
+  <app-sidebar></app-sidebar>
+</form>
+}
+@else{
+<form autocomplete='off' class='form'>
+  <div class='control'>
+    <h1>
+      Mudar a Senha
+    </h1>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='novaSenha' placeholder='Nova Senha' type='password' [(ngModel)]="novaSenha" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <div class='control block-cube block-input'>
+    <input name='confirmarSenha' placeholder='Confirmar Senha' type='password' [(ngModel)]="confirmarNovaSenha" required>
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+  </div>
+  <button class='btn block-cube block-cube-hover' type='button' (click)="usuario()">
+    <div class='bg-top'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg-right'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='bg'>
+      <div class='bg-inner'></div>
+    </div>
+    <div class='text'>
+      Salvar senha
     </div>
   </button>
   <br>
@@ -71,4 +88,6 @@
       Voltar
     </div>
   </button>
+  <app-sidebar></app-sidebar>
 </form>
+}
