@@ -30,7 +30,8 @@ A interface foi construída com foco em usabilidade e controle de acesso de acor
 Clone o repositório:
 
 git clone https://github.com/JP3015/party-ticket-web.git
-cd party-ticket-frontend
+
+cd party-ticket-web
 
 
 Instale as dependências:
